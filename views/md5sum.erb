@@ -1,0 +1,22 @@
+<fieldset>
+  <legend>Input</legend>
+  <form name="form" action="md5sum" method="post">     <!--  Parameter? -->
+    <p>Enter the text you want to hash with MD5:</p>
+    <label title="Paste the text to hash here">
+      <textarea rows="10" cols="60" name="input" class="input"><%= defined?(input) ? input : "" %></textarea>
+    </label>
+    <br/>
+    <label title="Hash the text using MD5">
+      <input type="submit" name="submit" value="Encode"/>
+    </label>
+  </form>
+</fieldset>
+<% if defined? output %>
+  <fieldset class="cryptarea">
+    <legend>Output</legend>
+    <p>MD5-hashed output in hex:</p>
+    <label title="This is the result of hashing the input with MD5, in hex">
+      <textarea cols="60" rows="10"><%= output %></textarea>                    
+    </label>
+  </fieldset>
+<% end %>

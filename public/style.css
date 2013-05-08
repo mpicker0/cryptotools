@@ -1,0 +1,72 @@
+body {
+    color: #005a9c;
+}
+
+.title {
+    background-color: #005a9c;
+    color: #ffffff;
+    font-size: xx-large;
+    text-align: center; 
+}
+
+.title p {
+    padding: 0px;
+    margin: 0px;
+}
+
+#alltools {
+    padding: 1em;
+    border-color: #005a9c;
+    border-style: dotted;
+    border-width: 1px;    
+}
+
+fieldset legend {
+    background-color: #dfebf7;
+    color: #005a9c;
+    border-color: #dfebf7;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+fieldset {    
+    border-color: #dfebf7;
+    border-style: solid;
+    margin: 1em;
+}
+
+a.indexlink, a.indexlink:visited, a.indexlink:active, a.indexlink:hover {
+    color: #ffffff;
+    background-color: #005a9c;
+    font-size: small;
+    font-weight: normal;
+    text-decoration: none;
+    float: right;
+}
+
+a, a:visited {
+    color: #005a9c;
+    font-weight: bold;
+}
+
+a:active, a:hover {
+    background: #dfebf7;    
+}
+
+table {
+    background: #dfebf7;
+    padding: 0.2em;
+}
+
+table td {
+    color: #005a9c;
+    background: #ffffff;
+    border-bottom: 1px solid #005a9c;
+    border-right: 1px solid #005a9c;
+    padding: 0.2em;
+}
+
+td:hover {
+    background: #dfebf7;    
+}
+
