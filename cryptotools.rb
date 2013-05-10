@@ -24,12 +24,12 @@ title_map = {
  
 # index
 get "/" do
-  erb :index, :locals => {:title => "CryptoTools"}
+  erb :index, locals: {title: "CryptoTools"}
 end
 
 get "/*" do
   resource = params[:splat].first
-  erb resource.to_sym, :locals => {:title => title_map[resource.to_sym]}
+  erb resource.to_sym, locals: {title: title_map[resource.to_sym]}
 end
 
 # ciphers/coding
@@ -39,10 +39,10 @@ post "/base64" do
   else
     output = Base64.decode64(params[:input])
   end
-  erb :base64, :locals => { 
-    :title => title_map[:base64],
-    :input => params[:input], 
-    :output => output 
+  erb :base64, locals: { 
+    title: title_map[:base64],
+    input: params[:input], 
+    output: output 
     }
 end
 
@@ -53,10 +53,10 @@ post "/urlencode" do
   else
     output = CGI::unescape(params[:input])
   end
-  erb :urlencode, :locals => { 
-    :title => title_map[:urlencode],
-    :input => params[:input], 
-    :output => output 
+  erb :urlencode, locals: { 
+    title: title_map[:urlencode],
+    input: params[:input], 
+    output: output 
     }
 end
 
@@ -71,27 +71,27 @@ post "/websphere" do
       (c.ord ^ "_".ord).chr
     end.join("")
   end
-  erb :websphere, :locals => { 
-    :title => title_map[:websphere],
-    :input => "{xor}" + params[:input], 
-    :output => output 
+  erb :websphere, locals: { 
+    title: title_map[:websphere],
+    input: "{xor}" + params[:input], 
+    output: output 
     }
 end
 
 # hashes
 post "/md5sum" do
-  erb :md5sum, :locals => { 
-    :title => title_map[:md5sum],
-    :input => params[:input], 
-    :output => Digest::MD5.hexdigest(params[:input]) 
+  erb :md5sum, locals: { 
+    title: title_map[:md5sum],
+    input: params[:input], 
+    output: Digest::MD5.hexdigest(params[:input]) 
     }
 end
 
 post "/sha1sum" do
-  erb :sha1sum, :locals => { 
-    :title => title_map[:sha1sum],
-    :input => params[:input], 
-    :output => Digest::SHA1.hexdigest(params[:input]) 
+  erb :sha1sum, locals: { 
+    title: title_map[:sha1sum],
+    input: params[:input], 
+    output: Digest::SHA1.hexdigest(params[:input]) 
     }
 end
 
@@ -103,21 +103,26 @@ post "/hex" do
     params[:input] = "0" + params[:input] if params[:input].length % 2 != 0
     output = Array(params[:input]).pack("H*")
   end
-  erb :hex, :locals => { 
-    :title => title_map[:hex],
-    :input => params[:input], 
-    :output => output 
+  erb :hex, locals: { 
+    title: title_map[:hex],
+    input: params[:input], 
+    output: output 
     }
 end
 
 post "/x509" do
   cert = OpenSSL::X509::Certificate.new(params[:input])
   output = cert.to_text
-  erb :x509, :locals => { 
-    :title => title_map[:x509],
-    :input => params[:input], 
-    :output => output,
-    :cert => cert
+  class << cert
+    attr_accessor :md5_thumbprint, :sha1_thumbprint
+  end
+  cert.md5_thumbprint = Digest::MD5.hexdigest(cert.to_der).scan(/../).join(":")
+  cert.sha1_thumbprint = Digest::SHA1.hexdigest(cert.to_der).scan(/../).join(":")
+  erb :x509, locals: { 
+    title: title_map[:x509],
+    input: params[:input], 
+    output: output,
+    cert: cert
     }
 end
 
@@ -126,9 +131,9 @@ post "/samlrr" do
   unbase64 = Base64.decode64(unencoded)
   output = unbase64[0] == "<" ? unbase64 : 
     Zlib::Inflate.new(-Zlib::MAX_WBITS).inflate(unbase64)
-  erb :samlrr, :locals => { 
-    :title => title_map[:samlrr],
-    :input => params[:input], 
-    :output => output 
+  erb :samlrr, locals: { 
+    title: title_map[:samlrr],
+    input: params[:input], 
+    output: output 
     }
 end

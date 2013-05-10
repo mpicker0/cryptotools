@@ -23,6 +23,8 @@
           <tr><td>validTo</td><td><%= cert.not_after %></td></tr>
           <tr><td>version</td><td><%= cert.version + 1 %></td></tr>
           <tr><td>serialNumber</td><td><%= cert.serial %></td></tr>
+          <tr><td>md5Thumbprint</td><td><%= cert.md5_thumbprint %></td></tr>
+          <tr><td>sha1Thumbprint</td><td><%= cert.sha1_thumbprint %></td></tr>
           <% if cert.extensions.length > 0 %>
           <tr><td>extensions</td>
               <td><table>
