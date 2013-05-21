@@ -35,7 +35,7 @@ end
 # ciphers/coding
 post "/base64" do
   if params[:process] == "Encode"
-    output = Base64.encode64(params[:input])
+    output = Base64.strict_encode64(params[:input])
   else
     output = Base64.decode64(params[:input])
   end
