@@ -15,6 +15,7 @@ title_map = {
   base64: "Base 64 encoding",
   urlencode: "URL encoding",
   websphere: "IBM XOR password encoding (WebSphere)",
+  stashfile: "IBM stash file decoding",
   md5sum: "MD5 message digest",
   sha1sum: "SHA1 hashing",
   hex: "Hex encoding",
@@ -75,6 +76,22 @@ post "/websphere" do
     title: title_map[:websphere],
     input: "{xor}" + params[:input], 
     output: output 
+    }
+end
+
+post "/stashfile" do
+  output = ""
+  Base64.decode64(params[:input]).each_char.collect do |c|
+    decoded_char = c.ord ^ 0xf5
+    if decoded_char == 0
+      break
+    end
+    output += decoded_char.chr
+  end
+  erb :stashfile, locals: { 
+    title: title_map[:stashfile],
+    input: params[:input], 
+    output: output
     }
 end
 
