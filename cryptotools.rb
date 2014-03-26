@@ -128,6 +128,12 @@ post "/hex" do
 end
 
 post "/x509" do
+  if not params[:input].index("\n") or params[:input].index("\n") > 77
+    params[:input] = params[:input].scan(/.{1,77}/).join("\n")
+  end
+  if not params[:input].start_with?("-----BEGIN CERTIFICATE-----")
+    params[:input] = "-----BEGIN CERTIFICATE-----\n#{params[:input]}\n-----END CERTIFICATE-----"
+  end
   cert = OpenSSL::X509::Certificate.new(params[:input])
   output = cert.to_text
   class << cert
