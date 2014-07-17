@@ -21,5 +21,11 @@
     <label title="This is the result of the conversion selected above">
       <textarea cols="60" rows="10"><%= output %></textarea>                    
     </label>
+    <% if not hex.to_s == '' %>
+    <p>Result as hex:</p>
+    <label title="This is the result of the conversion selected above, as hex">
+      <textarea cols="60" rows="10"><%= hex %></textarea>                    
+    </label>
+    <% end %>
   </fieldset>
 <% end %>

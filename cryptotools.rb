@@ -39,11 +39,13 @@ post "/base64" do
     output = Base64.strict_encode64(params[:input])
   else
     output = Base64.decode64(params[:input])
+    hex = Base64.decode64(params[:input]).each_byte.map { |b| b.to_s(16) }.join
   end
   erb :base64, locals: { 
     title: title_map[:base64],
     input: params[:input], 
-    output: output 
+    output: output,
+    hex: hex
     }
 end
 
