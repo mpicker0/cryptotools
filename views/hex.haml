@@ -1,0 +1,17 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "hex", method: "post"}
+    %p Enter the text or hex you want to convert:
+    %label{title: "Paste the text or hex to transform here"}
+      %textarea.input{rows: "10", cols: "60", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "Text pasted in the textarea will be converted to hex digits"}
+      %input{type: "submit", name: "process", value: "Text to Hex"}
+    %label{title: "Hex digits pasted into the textarea will converted to text"}
+      %input{type: "submit", name: "process", value: "Hex to Text"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %p Result:
+    %label{title: "This is the result of the conversion selected above"}
+      %textarea{rows: "10", cols: "60"}= output

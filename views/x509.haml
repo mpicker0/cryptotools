@@ -1,0 +1,49 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "x509", method: "post"}
+    %p Paste in a Base64-encoded certificate:
+    %label{title: "Paste the certificate here"}
+      %textarea.input{rows: "10", cols: "80", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "The certificate in the textarea will be decoded"}
+      %input{type: "submit", name: "process", value: "Decode"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %fieldset.cryptarea
+      %legend Certificate
+      %table
+        %tr
+          %td subject
+          %td= cert.subject
+        %tr
+          %td issuer
+          %td= cert.issuer
+        %tr
+          %td validFrom
+          %td= cert.not_before
+        %tr
+          %td validTo
+          %td= cert.not_after
+        %tr
+          %td version
+          %td= cert.version + 1
+        %tr
+          %td serialNumber
+          %td= cert.serial
+        %tr
+          %td md5Thumbprint
+          %td= cert.md5_thumbprint
+        %tr
+          %td sha1Thumbprint
+          %td= cert.sha1_thumbprint
+        - if cert.extensions.length > 0
+          %tr
+            %td extensions
+            %td
+              %table
+                - cert.extensions.each do |e|
+                  %tr
+                    %td= e.oid
+                    %td= e.value
+        %pre= cert.to_text

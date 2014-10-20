@@ -1,0 +1,21 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "base64", method: "post"}
+    %p Enter the text you want to Base64 encode or decode:
+    %label{title: "Paste the text to transform here"}
+      %textarea.input{rows: "10", cols: "60", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "Text pasted in the textarea will be transformed to Base64"}
+      %input{type: "submit", name: "process", value: "Encode"}
+    %label{title: "Base64-encoded text pasted into the textarea will be converted to its native form"}
+      %input{type: "submit", name: "process", value: "Decode"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %p Result:
+    %label{title: "This is the result of the conversion selected above"}
+      %textarea{rows: "10", cols: "60"}= output
+    - if not hex.to_s == ''
+      %p Result as hex:
+      %label{title: "This is the result of the conversion selected above, as hex"}
+        %textarea{rows: "10", cols: "60"}= hex

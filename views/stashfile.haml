@@ -1,0 +1,17 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "stashfile", method: "post"}
+    %p Enter the Base64-encoded stash file here.
+    %p
+      %em Hint:  To get the Base64-encoded version of this file in AIX, enter the command <tt>uuencode -m pdsrv.sth /dev/stdout</tt>, where <tt>pdsrv.sth</tt> is the name of the stash file.  In Linux, use <tt>base64 pdsrv.sth</tt>.
+    %label{title: "Paste the Base64-encoded stash file here"}
+      %textarea.input{rows: "10", cols: "60", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "A Base64-encoded stash file pasted in the textarea will be decoded"}
+      %input{type: "submit", name: "process", value: "Decode"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %p Result:
+    %label{title: "This is the result of decoding the input"}
+      %textarea{rows: "10", cols: "60"}= output

@@ -1,0 +1,17 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "websphere", method: "post"}
+    %p Enter the WebSphere password you want to encode or decode (if decoding, it should look like <tt>{xor}crypttext</tt>, but the <tt>{xor}</tt> itself is optional):
+    %label{title: "Paste the password here"}
+      %textarea.input{rows: "10", cols: "60", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "Encode the password into WebSphere's format"}
+      %input{type: "submit", name: "process", value: "Encode"}
+    %label{title: "Decode the WebSphere-formatted password"}
+      %input{type: "submit", name: "process", value: "Decode"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %p Result:
+    %label{title: "This is the result of the conversion selected above"}
+      %textarea{rows: "10", cols: "60"}= output

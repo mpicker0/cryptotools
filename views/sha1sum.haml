@@ -1,0 +1,15 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "sha1sum", method: "post"}
+    %p Enter the text you want to hash with SHA1:
+    %label{title: "Paste the text to hash here"}
+      %textarea.input{rows: "10", cols: "60", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "Hash the text using SHA1"}
+      %input{type: "submit", name: "submit", value: "Encode"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %p SHA1-hashed output in hex:
+    %label{title: "This is the result of hashing the input with SHA1, in hex"}
+      %textarea{rows: "10", cols: "60"}= output

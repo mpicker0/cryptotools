@@ -1,0 +1,15 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "samlrr", method: "post"}
+    %p Enter encoded SAML request or response you want to decode:
+    %label{title: "Paste the text to decode here"}
+      %textarea.input{rows: "10", cols: "60", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "Text pasted in the textarea will be decoded"}
+      %input{type: "submit", name: "process", value: "Decode"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %p Result:
+    %label{title: "This is the result of decoding the text from above"}
+      %textarea{rows: "10", cols: "60"}= output

@@ -1,0 +1,17 @@
+%fieldset
+  %legend Input
+  %form{name: "form", action: "urlencode", method: "post"}
+    %p Enter the text you want to URL encode or decode:
+    %label{title: "Paste the text to transform here"}
+      %textarea.input{rows: "10", cols: "60", name: "input"}= defined?(input) ? input : ""
+    %br
+    %label{title: "Text pasted in the textarea will be URL-encoded"}
+      %input{type: "submit", name: "process", value: "Encode"}
+    %label{title: "URL-encoded text pasted into the textarea will be decoded"}
+      %input{type: "submit", name: "process", value: "Decode"}
+- if defined? output
+  %fieldset.cryptarea
+    %legend Output
+    %p Result:
+    %label{title: "This is the result of the conversion selected above"}
+      %textarea{rows: "10", cols: "60"}= output

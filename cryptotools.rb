@@ -1,10 +1,13 @@
 #!/usr/bin/env ruby
 #
 
+require "rubygems"
+require "bundler/setup"
+
 require "sinatra"
 require "digest/md5"
 require "base64"
-require "erb"
+require "haml"
 require "cgi"
 require "zlib"
 require "openssl"
@@ -25,12 +28,12 @@ title_map = {
  
 # index
 get "/" do
-  erb :index, locals: {title: "CryptoTools"}
+  haml :index, locals: {title: "CryptoTools"}
 end
 
 get "/*" do
   resource = params[:splat].first
-  erb resource.to_sym, locals: {title: title_map[resource.to_sym]}
+  haml resource.to_sym, :locals => {title: title_map[resource.to_sym]}
 end
 
 # ciphers/coding
@@ -41,12 +44,12 @@ post "/base64" do
     output = Base64.decode64(params[:input])
     hex = Base64.decode64(params[:input]).each_byte.map { |b| b.to_s(16) }.join
   end
-  erb :base64, locals: { 
+  haml :base64, locals: {
     title: title_map[:base64],
     input: params[:input], 
     output: output,
     hex: hex
-    }
+  }
 end
 
 post "/urlencode" do
@@ -56,7 +59,7 @@ post "/urlencode" do
   else
     output = CGI::unescape(params[:input])
   end
-  erb :urlencode, locals: { 
+  haml :urlencode, locals: { 
     title: title_map[:urlencode],
     input: params[:input], 
     output: output 
@@ -74,7 +77,7 @@ post "/websphere" do
       (c.ord ^ "_".ord).chr
     end.join("")
   end
-  erb :websphere, locals: { 
+  haml :websphere, locals: { 
     title: title_map[:websphere],
     input: "{xor}" + params[:input], 
     output: output 
@@ -90,7 +93,7 @@ post "/stashfile" do
     end
     output += decoded_char.chr
   end
-  erb :stashfile, locals: { 
+  haml :stashfile, locals: { 
     title: title_map[:stashfile],
     input: params[:input], 
     output: output
@@ -99,7 +102,7 @@ end
 
 # hashes
 post "/md5sum" do
-  erb :md5sum, locals: { 
+  haml :md5sum, locals: { 
     title: title_map[:md5sum],
     input: params[:input], 
     output: Digest::MD5.hexdigest(params[:input]) 
@@ -107,7 +110,7 @@ post "/md5sum" do
 end
 
 post "/sha1sum" do
-  erb :sha1sum, locals: { 
+  haml :sha1sum, locals: { 
     title: title_map[:sha1sum],
     input: params[:input], 
     output: Digest::SHA1.hexdigest(params[:input]) 
@@ -122,7 +125,7 @@ post "/hex" do
     params[:input] = "0" + params[:input] if params[:input].length % 2 != 0
     output = Array(params[:input]).pack("H*")
   end
-  erb :hex, locals: { 
+  haml :hex, locals: { 
     title: title_map[:hex],
     input: params[:input], 
     output: output 
@@ -143,7 +146,7 @@ post "/x509" do
   end
   cert.md5_thumbprint = Digest::MD5.hexdigest(cert.to_der).scan(/../).join(":")
   cert.sha1_thumbprint = Digest::SHA1.hexdigest(cert.to_der).scan(/../).join(":")
-  erb :x509, locals: { 
+  haml :x509, locals: { 
     title: title_map[:x509],
     input: params[:input], 
     output: output,
@@ -156,7 +159,7 @@ post "/samlrr" do
   unbase64 = Base64.decode64(unencoded)
   output = unbase64[0] == "<" ? unbase64 : 
     Zlib::Inflate.new(-Zlib::MAX_WBITS).inflate(unbase64)
-  erb :samlrr, locals: { 
+  haml :samlrr, locals: { 
     title: title_map[:samlrr],
     input: params[:input], 
     output: output 
