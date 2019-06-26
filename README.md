@@ -19,3 +19,11 @@ Requirements
 Demo
 ----
 Try it on [Heroku](http://my-cryptotools.herokuapp.com/).
+
+Running locally
+---------------
+
+    bundle install --path vendor/bundle
+    bundle exec ./cryptotools.rb
+
+Then, browse to <http://localhost:4567>
