@@ -11,14 +11,9 @@ Many years ago, I started using a PHP-based tool called [Cryptomak](http://sourc
 
 Having gotten interested in Ruby recently, I decided to try to re-implement it in Ruby, and needing a simple web front-end, I chose Sinatra.
 
-Requirements
-------------
-* [Ruby 1.9](http://www.ruby-lang.org); I have not tested with Ruby 1.8, but the only thing I know of that would prevent its running are some hash literals.
-* [Sinatra](http://www.sinatrarb.com/)
-
 Demo
 ----
-Try it on [Heroku](http://my-cryptotools.herokuapp.com/).
+Try it on [Heroku](https://my-cryptotools.herokuapp.com/).
 
 Running locally
 ---------------
