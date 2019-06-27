@@ -15,10 +15,20 @@ Demo
 ----
 Try it on [Heroku](https://my-cryptotools.herokuapp.com/).
 
-Running locally
----------------
+Bulding and running locally
+---------------------------
+Install dependencies with:
 
     bundle install --path vendor/bundle
+
+Start it directly with:
+
     bundle exec ./cryptotools.rb
 
 Then, browse to <http://localhost:4567>
+
+You can also start it via [Rack](https://rack.github.io/):
+
+    bundle exec rackup config.ru
+
+Then, browse to <http://localhost:9292>
